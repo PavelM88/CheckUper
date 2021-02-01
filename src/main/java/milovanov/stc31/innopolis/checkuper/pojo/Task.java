@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "task")
-public class Task implements Persistable<Long> {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,11 +27,6 @@ public class Task implements Persistable<Long> {
 
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
     }
 
     public void setId(Long id) {

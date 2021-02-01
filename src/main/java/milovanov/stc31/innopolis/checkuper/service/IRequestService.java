@@ -3,6 +3,7 @@ package milovanov.stc31.innopolis.checkuper.service;
 import milovanov.stc31.innopolis.checkuper.pojo.Customer;
 import milovanov.stc31.innopolis.checkuper.pojo.Executor;
 import milovanov.stc31.innopolis.checkuper.pojo.Request;
+import milovanov.stc31.innopolis.checkuper.pojo.Task;
 
 import java.util.List;
 
@@ -63,9 +64,10 @@ public interface IRequestService {
      */
     List<Request> getAllRequestsByCustomer(Customer customer);
 
-    public void deleteRequestById(Long id);
+    void deleteRequestById(Long id);
 
     void takeExecutor(Request request, Executor executor);
 
     void save(Request request, String stringWithTasks, Customer customer);
+    void update(Request request, Task task);
 }

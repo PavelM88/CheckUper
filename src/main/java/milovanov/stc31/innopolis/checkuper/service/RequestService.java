@@ -130,4 +130,9 @@ public class RequestService implements IRequestService {
         }
         requestDao.save(request);
     }
+
+    @Override
+    public void update(Request request, Task task) {
+
+    }
 }

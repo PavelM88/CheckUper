@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -182,7 +181,21 @@ public class RequestController {
     public String getRequestForEdit(Model model, @RequestParam(value = "id", required = false) String paramRequestId) {
         try {
             Request request = requestService.getRequestById(Long.valueOf(paramRequestId));
+            List<String> task = new ArrayList<>();
+            for (Task s : request.getTaskList()) {
+                task.add(s.getInfo());
+            }
+
+//            List<Task> ret = null;
+//            List<Request> temp = requestService.getAllRequestsByCustomer(request.getCustomer());
+//            for (int i = 0; i < temp.size(); i++) {
+//                if (temp.get(i).getId().equals(Long.valueOf(paramRequestId))) {
+//                    ret = temp.get(i).getTaskList();
+//                    break;
+//                }
+//            }
             model.addAttribute("request", request);
+            model.addAttribute("task", task);
         } catch (NumberFormatException exception) {
             logger.error("Ошибка при разборе параметра reguestId = '{}'", paramRequestId, exception);
         }
@@ -193,6 +206,16 @@ public class RequestController {
 //        model.addAttribute("tasks", new ArrayList<>(Arrays.asList("111", "222", "333")));
 
         return "/user/workspase_applications_edit";
+    }
+
+    @PostMapping(value = "/editrequest")
+    public String updateRequest(
+            @PathVariable(value = "id") Long id,
+            @ModelAttribute Request request,
+            @Valid Task task,
+            @AuthenticationPrincipal User user) {
+
+        return "redirect:/requests/my";
     }
 
     @PostMapping(value = "/addrequest")
